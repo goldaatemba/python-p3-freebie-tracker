@@ -1,1 +1,113 @@
-Generic single-database configuration.
+
+# 🎁 Freebie Tracker
+
+This is a simple Python project using **SQLAlchemy** to model a system where **companies give out freebies to developers**. It includes models for `Company`, `Dev`, and `Freebie`, with relationships and custom methods for managing and querying data.
+
+## 🧱 Schema Overview
+
+### Company
+| Field         | Type      | Description                     |
+|---------------|-----------|---------------------------------|
+| `id`          | Integer   | Primary key                     |
+| `name`        | String    | Name of the company             |
+| `founding_year` | Integer | Year the company was founded    |
+
+**Relationships:**
+- `freebies` (One-to-many with `Freebie`)
+
+---
+
+### Dev
+| Field         | Type      | Description               |
+|---------------|-----------|---------------------------|
+| `id`          | Integer   | Primary key               |
+| `name`        | String    | Developer's name          |
+| `founding_year` | Integer | (Optional - not utilized) |
+
+**Relationships:**
+- `freebies` (One-to-many with `Freebie`)
+
+---
+
+### Freebie
+| Field       | Type      | Description                             |
+|-------------|-----------|-----------------------------------------|
+| `id`        | Integer   | Primary key                             |
+| `name`      | String    | Name of the freebie item                |
+| `value`     | Integer   | Monetary or perceived value of item     |
+| `dev_id`    | ForeignKey | Link to the developer receiving it     |
+| `company_id`| ForeignKey | Link to the company giving it          |
+
+**Relationships:**
+- Belongs to `Dev`
+- Belongs to `Company`
+
+---
+
+## 🔧 Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone <repo-url>
+   cd python-p3-freebie-tracker
+Create a virtual environment (optional but recommended)
+
+python3 -m venv env
+source env/bin/activate  # On Windows: env\Scripts\activate
+pip install sqlalchemy
+python seed.py
+python debug.py
+Aggregate and Instance Methods
+Company.give_freebie(dev, item_name, value)
+Creates and returns a new Freebie instance for the given dev.
+
+python
+Copy
+Edit
+google.give_freebie(alice, "Sticker", 5)
+Company.oldest_company(session)
+Returns the company with the earliest founding year.
+
+python
+Copy
+Edit
+Company.oldest_company(session)
+Dev.received_one(item_name)
+Checks if the developer has received a freebie with the given name.
+
+python
+Copy
+Edit
+alice.received_one("T-shirt")  # True or False
+Dev.give_away(other_dev, freebie)
+Transfers a freebie from one developer to another (if owned by the giver).
+
+python
+Copy
+Edit
+bob.give_away(alice, mug)
+Freebie.print_details()
+Prints a human-readable string describing the freebie.
+
+python
+Copy
+Edit
+print(mug.print_details())  
+# Output: Bob owns a Mug from Amazon.
+📝 Notes
+Ensure the database is created before seeding or running queries.
+
+Use ipdb for interactive debugging and testing inside debug.py.
+
+📂 File Structure
+bash
+Copy
+Edit
+.
+├── models.py       # SQLAlchemy models
+├── seed.py         # Seeds the database with initial data
+├── debug.py        # Launches debugging session
+├── freebies.db     # SQLite database (after seed)
+├── README.md       # Project documentation
+🧑‍💻 Author
+Golda Atemba
