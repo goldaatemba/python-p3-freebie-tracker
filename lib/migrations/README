@@ -60,38 +60,18 @@ python debug.py
 Aggregate and Instance Methods
 Company.give_freebie(dev, item_name, value)
 Creates and returns a new Freebie instance for the given dev.
-
-python
-Copy
-Edit
 google.give_freebie(alice, "Sticker", 5)
 Company.oldest_company(session)
 Returns the company with the earliest founding year.
-
-python
-Copy
-Edit
 Company.oldest_company(session)
 Dev.received_one(item_name)
 Checks if the developer has received a freebie with the given name.
-
-python
-Copy
-Edit
 alice.received_one("T-shirt")  # True or False
 Dev.give_away(other_dev, freebie)
 Transfers a freebie from one developer to another (if owned by the giver).
-
-python
-Copy
-Edit
 bob.give_away(alice, mug)
 Freebie.print_details()
 Prints a human-readable string describing the freebie.
-
-python
-Copy
-Edit
 print(mug.print_details())  
 # Output: Bob owns a Mug from Amazon.
 📝 Notes
